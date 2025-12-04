@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Favorites — Kyienah & Lablab 💖</title>
+<style>
+  :root{
+    --bg:#f0f8ff; --accent:#ff6b9a; --accent2:#87ceeb; --text:#333;
+  }
+  body{ margin:0; font-family:Arial, sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden;}
+  nav { position:fixed; top:0; width:100%; display:flex; justify-content:center; background: linear-gradient(90deg, var(--accent2), var(--accent)); padding:12px 0; z-index:1000;}
+  nav a { margin:0 15px; text-decoration:none; color:white; font-weight:bold; padding:6px 12px; border-radius:8px;}
+  nav a:hover { background: rgba(255,255,255,0.3);}
+  main{ max-width:800px; margin:0 auto; padding-top:90px; position:relative;}
+  h1{color:var(--accent); text-align:center;}
+  .fav-list{ display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;}
+  .fav-item{ background:#ffe0e9; padding:12px; border-radius:10px; font-size:14px; border:1px solid #ffb0c1; flex:1 1 45%;}
+  input{ width:70%; padding:10px; border-radius:8px; border:1px solid #ffb0c1; margin-top:10px; font-size:14px;}
+  .btn{ background:linear-gradient(90deg,var(--accent),var(--accent2)); color:white; padding:8px 12px; border:none; border-radius:8px; margin-top:6px; cursor:pointer; font-weight:bold;}
+  .messages{margin-top:20px;}
+  .msg{background:#ffe0e9;padding:12px;border-radius:10px;border:1px solid #ffb0c1;font-size:14px;}
+  .gallery{display:flex; overflow-x:auto; gap:10px; margin-top:20px;}
+  .gallery img{height:150px; border-radius:10px;}
+  .hearts{position:absolute; inset:0; pointer-events:none;}
+  .heart{position:absolute;width:14px;height:12px;background:var(--accent);transform:rotate(-45deg);border-radius:3px;opacity:0.85;}
+  .heart:after,.heart:before{content:"";position:absolute;background:var(--accent);width:14px;height:12px;border-radius:50%}
+  .heart:before{top:-6px;left:0}
+  .heart:after{left:6px;top:0}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="messages.html">Messages</a>
+  <a href="favorites.html">Favorite Things</a>
+  <a href="song.html">Fav Song</a>
+  <a href="together.html">How Long Together</a>
+</nav>
+
+<main>
+  <h1>Our Favorite Things To Do 🍿💞</h1>
+
+  <div class="messages">
+    <div class="msg">Kyienah koooo, I still remember how we laugh together every time na nag babardagulan kita 🥹 </div>
+    <div class="msg">Mag lambingan with you is my safe place 💕 — damo pa nga mga memories nga gusto ko magawa naton together</div>
+    <div class="msg">Sharing chikas and eating siomai-corndog together — unforgettable moments 🥰</div>
+  </div>
+
+  <div class="fav-list" id="favList">
+    <div class="fav-item">Eating foods (siomai & corndog) 🍴</div>
+    <div class="fav-item">Mag bardagulan 😆</div>
+    <div class="fav-item">Mag lambingan 💕</div>
+    <div class="fav-item">Sharing chikas 🗣️</div>
+    <div class="fav-item">Mag play 😚</div>
+    <div class="fav-item">And many more...</div>
+  </div>
+  <input id="favInput" placeholder="Add a favorite thing..." />
+  <button class="btn" id="addFav">Add</button>
+
+  <div class="gallery">
+    <img src="1748167136281_1.jpeg" alt="">
+    <img src="1759531027256_1.jpeg" alt="">
+    <img src="1759531052790_1.jpeg" alt="">
+    <img src="1759531237931_1.jpeg" alt="">
+  </div>
+
+  <div class="hearts" id="heartsLayer"></div>
+  <audio autoplay loop src="https://www.bensound.com/bensound-music/bensound-romantic.mp3"></audio>
+</main>
+
+<script>
+  document.getElementById('addFav').addEventListener('click', ()=>{
+    const v=document.getElementById('favInput').value.trim();
+    if(!v) return;
+    const el=document.createElement('div');
+    el.className='fav-item'; el.textContent=v;
+    document.getElementById('favList').appendChild(el);
+    document.getElementById('favInput').value='';
+  });
+
+  // floating hearts
+  (function createHearts(){
+    const hLayer = document.getElementById('heartsLayer');
+    for(let i=0;i<25;i++){
+      const el=document.createElement('div');
+      el.className='heart';
+      el.style.left=Math.random()*100+'%';
+      el.style.top=Math.random()*100+'%';
+      const size=(8+Math.random()*18);
+      el.style.width=size+'px'; el.style.height=Math.max(6,size-2)+'px';
+      el.style.opacity=0.5+Math.random()*0.5;
+      hLayer.appendChild(el);
+      const dur = 6 + Math.random()*6;
+      el.animate([
+        { transform:'translateY(0) rotate(-45deg)', opacity:el.style.opacity },
+        { transform:'translateY(-50px) rotate(-45deg)', opacity:0.1 }
+      ], { duration: dur*1000, iterations:Infinity, direction:'alternate', easing:'ease-in-out', delay:Math.random()*2000 });
+    }
+  })();
+</script>
+</body>
+</html>

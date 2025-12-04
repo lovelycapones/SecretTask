@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>14th Monthsary — Kyienah & Lablab 💖</title>
+<style>
+  :root{
+    --bg: #f0f8ff; 
+    --accent: #ff6b9a;
+    --accent2: #87ceeb;
+    --text: #333;
+  }
+  body {
+    margin:0; font-family:Arial, sans-serif; background:var(--bg); color:var(--text); overflow-x:hidden; 
+  }
+  nav { 
+    position:fixed; top:0; width:100%; display:flex; justify-content:center; 
+    background: linear-gradient(90deg, var(--accent2), var(--accent)); padding:12px 0; z-index:1000;
+  }
+  nav a { 
+    margin:0 15px; text-decoration:none; color:white; font-weight:bold; padding:6px 12px; border-radius:8px;
+  }
+  nav a:hover { background: rgba(255,255,255,0.3);}
+  main { max-width:900px; margin:0 auto; padding-top:90px; text-align:center; }
+  h1 { color:var(--accent); font-size:30px; margin-bottom:8px; }
+  p.sweet { font-size:16px; margin:0 10px 20px 10px; color:#444; }
+  
+  /* 3D Card */
+  .card { 
+    width:360px; height:460px; margin:0 auto; border-radius:20px; 
+    background: linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1)); 
+    box-shadow:0 10px 40px rgba(0,0,0,0.4); transform-style:preserve-3d; perspective:1000px; 
+    position:relative; overflow:hidden; padding:12px; border:1px solid rgba(255,255,255,0.1);
+  }
+  .card-inner { width:100%; height:100%; border-radius:14px; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:10px; padding-top:20px; transition: transform 0.08s ease-out; }
+  .portrait { width:260px; height:260px; border-radius:18px; overflow:hidden; border:5px solid rgba(255,255,255,0.1); transform:translateZ(40px); display:flex; align-items:center; justify-content:center; }
+  .portrait img { width:100%; height:100%; object-fit:cover; display:block; }
+  .hearts{ position:absolute; inset:0; pointer-events:none; }
+
+  /* Floating hearts */
+  .heart { position:absolute; width:14px; height:12px; background:var(--accent); transform:rotate(-45deg); border-radius:3px; opacity:0.8;}
+  .heart:before,.heart:after { content:""; position:absolute; background:var(--accent); width:14px; height:12px; border-radius:50%;}
+  .heart:before{top:-6px; left:0;}
+  .heart:after{left:6px; top:0;}
+  
+  /* Gallery */
+  .gallery{ margin-top:25px; position:relative; height:600px; border-radius:12px; overflow:hidden; background:linear-gradient(90deg, rgba(135,206,235,0.2), rgba(255,182,193,0.1)); }
+  .slides{ display:flex; height:100%; transition: transform 300ms cubic-bezier(.22,.9,.3,1);}
+  .slides img{ width:100%; height: 100%; object-fit:cover; flex:0 0 100%;}
+  .controls{ position:absolute; top:50%; left:12px; right:12px; display:flex; justify-content:space-between; transform:translateY(-50%);}
+  .btn{ background:rgba(255,255,255,0.3); border-radius:40px; padding:8px 12px; color:white; font-weight:700; border:1px solid rgba(255,255,255,0.1); cursor:pointer; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="messages.html">Messages</a>
+  <a href="favorites.html">Favorite Things</a>
+  <a href="song.html">Fav Song</a>
+  <a href="together.html">How Long Together</a>
+</nav>
+
+<main>
+  <h1>14th Monthsary of Kyienah and Lablab 💖</h1>
+  <p class="sweet">Reminder (Kyienah only): I made this page just for you teh – look through every section!</p>
+
+  <div class="card" id="tiltCard">
+    <div class="card-inner">
+      <div class="portrait">
+        <img src="Screenshot_20251203-195647_1.png" alt="Us together">
+      </div>
+      <h1 class="small">Happy 14th Monthsary 💞</h1>
+      <p class="sweet">We've been through a lot since the first day, and I made this page pambawi haim — genuinely created this for my nene❤️</p>
+    </div>
+    <div class="hearts" id="heartsLayer"></div>
+  </div>
+
+  <!-- Gallery -->
+  <h2 style="margin-top:40px; color:#ff6b9a;">Gallery memories (Swipe left/right)</h2>
+  <div class="gallery">
+    <div class="slides" id="slides">
+      <img src="1759531027256_1.jpg" alt="">
+      <img src="1759531052790_1.jpg" alt="">
+      <img src="1759531237931_1.jpg" alt="">
+      <img src="1759531099733_1.jpg" alt="">
+      <img src="1759531296481_1.jpg" alt="">
+      <img src="1759531310918_1.jpg" alt="">
+      <img src="Screenshot_20251203-201456_1.png">
+      <img src="Screenshot_20251203-201517.png">
+      <img src="Screenshot_20251203-201535.png">
+    </div>
+    <div class="controls">
+      <button class="btn" id="prevBtn">‹</button>
+      <button class="btn" id="nextBtn">›</button>
+    </div>
+  </div>
+
+  <!-- Audio -->
+  <h2 style="margin-top:30px; color:#ff6b9a;">Our Song 🎵</h2>
+  <audio controls src="yung kai blue Lyrics.mp3" style="width:80%; margin-top:10px;"></audio>
+
+</main>
+
+<script>
+  // Hearts
+  (function createHearts(){
+    const hLayer = document.getElementById('heartsLayer');
+    for(let i=0;i<20;i++){
+      const h = document.createElement('div');
+      h.className='heart';
+      h.style.left=Math.random()*100+'%';
+      h.style.top=Math.random()*100+'%';
+      const size = 8+Math.random()*12;
+      h.style.width=size+'px';
+      h.style.height=(size-2)+'px';
+      hLayer.appendChild(h);
+      const dur = 5+Math.random()*5;
+      h.animate([{transform:'translateY(0)', opacity:0.8},{transform:'translateY(-40px)', opacity:0.2}], {duration:dur*1000, iterations:Infinity, direction:'alternate'});
+    }
+  })();
+
+  // 3D Tilt
+  (function(){
+    const card = document.getElementById('tiltCard');
+    const inner = card.querySelector('.card-inner');
+    function tilt(e){
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX-rect.left)/rect.width;
+      const y = (e.clientY-rect.top)/rect.height;
+      const rx = (y-0.5)*16;
+      const ry = (x-0.5)*-16;
+      inner.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`;
+    }
+    card.addEventListener('mousemove', tilt);
+    card.addEventListener('mouseleave',()=>inner.style.transform='rotateX(0deg) rotateY(0deg)');
+  })();
+
+  // Gallery swipe
+  (function(){
+    const slides=document.getElementById('slides');
+    const imgs=slides.querySelectorAll('img');
+    let index=0;
+    const total=imgs.length;
+    document.getElementById('prevBtn').onclick=()=>{index=(index-1+total)%total; slides.style.transform=`translateX(-${index*100}%)`;}
+    document.getElementById('nextBtn').onclick=()=>{index=(index+1)%total; slides.style.transform=`translateX(-${index*100}%)`;}
+  })();
+</script>
+
+</body>
+</html>
